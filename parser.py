@@ -41,10 +41,10 @@ def GetDropData(dropstring):
         return {
             'ItemName': ItemName,
             'ItemRarity': ItemRarity.strip(),
-            'IntactChance': float(IntactChance),
-            'FlawlessChance': float(FlawlessChance),
-            'ExceptionalChance': float(ExceptionalChance),
-            'RadiantChance': float(RadiantChance),
+            'Intact': float(IntactChance),
+            'Flawless': float(FlawlessChance),
+            'Exceptional': float(ExceptionalChance),
+            'Radiant': float(RadiantChance),
             'Ducats': float(Ducats)
         }
     except IndexError:
@@ -67,8 +67,8 @@ def ExtractRelicData(relicsegments):
     return RelicData
 
 
-def GetRelicData(missiondata):
+def GetRelicData(missiondecks):
     # Separate Relic segments from main file
-    RelicSegments = GetRelicSegments(missiondata)
+    RelicSegments = GetRelicSegments(missiondecks.split('\n'))
     # Return parsed Relic data
     return ExtractRelicData(RelicSegments)
