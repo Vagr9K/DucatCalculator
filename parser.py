@@ -62,7 +62,7 @@ def ExtractRelicData(relicsegments):
             Drop = GetDropData(dropstring)
             if Drop:
                 Items.append(Drop)
-        Data = {'RelicName ': relicname, 'Items': Items}
+        Data = {'RelicName': relicname, 'Items': Items}
         RelicData.append(Data)
     return RelicData
 
