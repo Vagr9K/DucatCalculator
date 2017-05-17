@@ -49,7 +49,7 @@ def GetDropData(dropstring):
         }
     except IndexError:
         # If the file format changes, don't instantly fail
-        print('WARNING: Failed to parse ITEM: %s', dropstring)
+        print('WARNING: Failed to parse ITEM: {}'.format(dropstring))
         return None
 
 
