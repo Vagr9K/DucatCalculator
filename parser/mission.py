@@ -81,9 +81,9 @@ def ExtractMissionData(missionlist):
                     matchlist.append(match.strip(' -'))
             newnode = {
                 'Node': matchlist[0] + ', ' + matchlist[1],
-                'Type': matchlist[2],
-                'Faction': matchlist[3],
-                'NT': matchlist[4]
+                'Type': re.sub('MT_', '', matchlist[2]),
+                'Faction': re.sub('FC_', '', matchlist[3]),
+                'NT': re.sub('NT_', '', matchlist[4])
             }
             ExtractedMission['Nodes'].append(newnode)
 
