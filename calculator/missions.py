@@ -1,16 +1,19 @@
 def CalculateDucatDrops(missionlist, ducatlist):
     CalculatedList = []
     for mission in missionlist:
-        Ducats = {}
+        Ducats = {
+            'Intact': [0, 0, 0, 0],
+            'Exceptional': [0, 0, 0, 0],
+            'Flawless': [0, 0, 0, 0],
+            'Radiant': [0, 0, 0, 0]
+        }
         for relic in mission['Relics']:
             rname = relic['Name']
             rchance = relic['Chance']
             for rtype in ['Intact', 'Exceptional', 'Flawless', 'Radiant']:
-                LDucats = []
                 for pcount in range(1, 5):
                     rducats = ducatlist[rtype][rname][pcount - 1]
-                    LDucats.append(rchance / 100 * rducats)
-                Ducats[rtype] = LDucats
+                    Ducats[rtype][pcount - 1] += rchance * rducats / 100
         CalcMission = {
             'Nodes': mission['Nodes'],
             'Ducats': Ducats
