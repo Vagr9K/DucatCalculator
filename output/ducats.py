@@ -1,6 +1,3 @@
-import xlsxwriter
-
-
 def ReformatData(ducatdata, relictype, sortkey):
     Data = []
     rdata = ducatdata[relictype]
@@ -21,8 +18,7 @@ def ReformatData(ducatdata, relictype, sortkey):
     return Data
 
 
-def CreateXLSX(DucatTable, filepath):
-    workbook = xlsxwriter.Workbook(filepath)
+def CreateXLSX(workbook, DucatTable):
     # Add a worksheet for each relic type
     for RelicType in DucatTable:
         worksheet = workbook.add_worksheet(RelicType)
@@ -45,15 +41,12 @@ def CreateXLSX(DucatTable, filepath):
             worksheet.write(row, 4, relic[4])
             worksheet.write(row, 5, relic[5])
             row += 1
-    workbook.close()
 
 
-def WriteOutput(ducatdata, outpath='Ducats.xlsx'):
+def WriteOutput(workbook, ducatdata):
     DucatTable = {}
     # Generate reformatted data for all relic types
     for relictype in ducatdata:
         DucatTable[relictype] = ReformatData(ducatdata, relictype, 4)
     # Write document
-    CreateXLSX(DucatTable, outpath)
-
-
+    CreateXLSX(workbook, DucatTable)
