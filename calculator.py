@@ -1,9 +1,11 @@
 import numpy as np
 from numpy.random import choice
+import multiprocessing as mp
+from multiprocessing.pool import Pool
 
 
 def AverageDucats(ducatlist, chancelist, playercount):
-    TESTCOUNT = 10000
+    TESTCOUNT = 5000
     Sum = 0
     # Renormalize chancelist
     chancelist = np.array(chancelist)
@@ -27,7 +29,10 @@ def DucatsPerRelic(relic, type):
     for playercount in range(1, 5):
         avg = AverageDucats(ducatlist, chancelist, playercount)
         results.append(avg)
-    return results
+    RelicName = relic['RelicName']
+    print('{} completed.'.format(RelicName))
+    # Return a tuple with name and results
+    return (RelicName, results)
 
 
 def DucatList(relicdata):
@@ -35,9 +40,19 @@ def DucatList(relicdata):
     Results = {}
     for RelicType in RelicTypes:
         Results[RelicType] = {}
+        # Generate arguments for multiprocessing pool
+        names = []
+        args = []
         print('Calculating {} relic stats.'.format(RelicType.lower()))
-        for index, relic in enumerate(relicdata):
-            print(str(index + 1) + '/' + str(len(relicdata)))
-            relicname = relic['RelicName']
-            Results[RelicType][relicname] = DucatsPerRelic(relic, RelicType)
+        for relic in relicdata:
+            names.append(relic['RelicName'])
+            args.append([relic, RelicType])
+        # Limit process count in poll to the number of CPUs
+        p = Pool(mp.cpu_count())
+        ret = p.starmap(DucatsPerRelic, args)
+        p.close()
+        p.join()
+        # Transform into a dictionary for easier access
+        for answer in ret:
+            Results[RelicType][answer[0]] = answer[1]
     return Results
