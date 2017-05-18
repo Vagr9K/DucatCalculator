@@ -36,7 +36,7 @@ def DucatsPerRelic(relic, type):
 
 
 def DucatList(relicdata):
-    RelicTypes = ['Intact', 'Flawless', 'Exceptional', 'Radiant']
+    RelicTypes = ['Intact', 'Exceptional', 'Flawless', 'Radiant']
     Results = {}
     for RelicType in RelicTypes:
         Results[RelicType] = {}

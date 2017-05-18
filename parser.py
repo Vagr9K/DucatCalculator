@@ -30,8 +30,8 @@ def GetDropData(dropstring):
         ItemName = re.findall(r'\d ([^,]*)', dropstring)[0]
         ItemRarity = re.findall(r',([^,]*),', dropstring)[0]
         IntactChance = re.findall(r'I:(\d+\.*\d*)%', dropstring)[0]
-        FlawlessChance = re.findall(r'F:(\d+\.*\d*)%', dropstring)[0]
         ExceptionalChance = re.findall(r'E:(\d+\.*\d*)%', dropstring)[0]
+        FlawlessChance = re.findall(r'F:(\d+\.*\d*)%', dropstring)[0]
         RadiantChance = re.findall(r'R:(\d+\.*\d*)%', dropstring)[0]
         Ducats = re.findall(r'(\d+) Ducats', dropstring)
         if not Ducats:
@@ -42,8 +42,8 @@ def GetDropData(dropstring):
             'ItemName': ItemName,
             'ItemRarity': ItemRarity.strip(),
             'Intact': float(IntactChance),
-            'Flawless': float(FlawlessChance),
             'Exceptional': float(ExceptionalChance),
+            'Flawless': float(FlawlessChance),
             'Radiant': float(RadiantChance),
             'Ducats': float(Ducats)
         }
