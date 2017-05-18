@@ -1,14 +1,19 @@
 import re
 
 
-def GetRelicSegments(missiondata):
-    RelicSegments = []
+def GetRelicLineNumbers(missiondata):
+    # Determine line numbers between segments
     relicLineNumbers = []
     relicTest = re.compile(r'\[(.+VoidKeyMissionRewards.+)\]')
-    # Determine line numbers between segments
     for index, line in enumerate(missiondata):
         if relicTest.findall(line):
             relicLineNumbers.append(index)
+    return relicLineNumbers
+
+
+def GetRelicSegments(missiondata):
+    RelicSegments = []
+    relicLineNumbers = GetRelicLineNumbers(missiondata)
     # Parse relic names and their item strings
     for index, linenum in enumerate(relicLineNumbers):
         relicName = missiondata[linenum + 1]
