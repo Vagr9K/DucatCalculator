@@ -2,14 +2,14 @@
 import download
 import parser.ducats
 import calculator.ducats
-import output
+import output.ducats
 
 
 def main():
     MissionDecks = download.GetMissionDecks()
     RelicData = parser.ducats.GetRelicData(MissionDecks)
     DucatData = calculator.ducats.DucatList(RelicData)
-    output.WriteOutput(DucatData)
+    output.ducats.WriteOutput(DucatData)
 
 
 if __name__ == '__main__':
