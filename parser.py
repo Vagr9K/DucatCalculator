@@ -15,9 +15,12 @@ def GetRelicSegments(missiondata):
         relicName = (re.sub(r'(-|RELIC)', '', relicName)).strip()
         relicLines = []
         if (index + 1) == len(relicLineNumbers):
-            break
+            # Special case for the last relic
+            endline = linenum + 10
+        else:
+            endline = relicLineNumbers[index + 1] - 2
         # Loop threw items
-        for itemlinenum in range(linenum + 4, relicLineNumbers[index + 1] - 2):
+        for itemlinenum in range(linenum + 4, endline):
             relicLines.append(missiondata[itemlinenum])
         segment = {'RelicName': relicName, 'RelicLines': relicLines}
         RelicSegments.append(segment)
