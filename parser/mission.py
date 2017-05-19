@@ -57,12 +57,25 @@ def GetRelicDropSegments(missiondata):
                 Nodes.append(line)
             else:
                 Relics.append(line)
-        MissionList.append({
-            'Nodes': Nodes,
-            'Relics': Relics
-        })
+        MissionList.append({'Nodes': Nodes, 'Relics': Relics})
 
     return MissionList
+
+
+def ParseMT(mtstring):
+    ret = re.sub('MT_', '', mtstring)
+    ret = re.sub("TERRITORY", "INTERCEPTION", ret)
+    ret = re.sub('RACE', 'ARCHWING DEFENSE', ret)
+    ret = re.sub('PURSUIT', 'ARCHWING PURSUIT', ret)
+    ret = re.sub('PURIFY', 'INFESTED SALVAGE', ret)
+    return ret
+
+
+def ParseOD(odnode):
+    ret = re.sub('OROKIN DERELICT ', 'OD', odnode)
+    ret = re.sub('SURVIVAL', 'S', ret)
+    ret = re.sub('DEFENSE', 'D', ret)
+    return ret
 
 
 def ExtractMissionData(missionlist):
@@ -80,8 +93,8 @@ def ExtractMissionData(missionlist):
                 if len(match):
                     matchlist.append(match.strip(' -'))
             newnode = {
-                'Node': matchlist[0] + ', ' + matchlist[1],
-                'Type': re.sub("TERRITORY", "INTERCEPTION", re.sub('MT_', '', matchlist[2])),
+                'Node': matchlist[0] + ', ' + ParseOD(matchlist[1]),
+                'Type': ParseMT(matchlist[2]),
                 'Faction': re.sub('FC_', '', matchlist[3]),
                 'NT': re.sub('NT_', '', matchlist[4])
             }
@@ -102,5 +115,3 @@ def ExtractMissionData(missionlist):
 def GetRelicMissonData(missiondata):
     mslist = GetRelicDropSegments(missiondata.split('\n'))
     return ExtractMissionData(mslist)
-
-
