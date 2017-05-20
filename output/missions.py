@@ -27,8 +27,8 @@ def CreateXLSX(workbook, MissionTable):
         worksheet.write("A1", "Node", bold)
         worksheet.write("B1", "Type", bold)
         worksheet.write("C1", "Faction", bold)
-        worksheet.write("E1", "Solo", bold)
-        worksheet.write("D1", "2 players", bold)
+        worksheet.write("D1", "Solo", bold)
+        worksheet.write("E1", "2 players", bold)
         worksheet.write("F1", "3 players", bold)
         worksheet.write("G1", "4 players", bold)
         row = 1
@@ -40,7 +40,7 @@ def CreateXLSX(workbook, MissionTable):
             worksheet.write(row, 3, node[3])
             worksheet.write(row, 4, node[4])
             worksheet.write(row, 5, node[5])
-            worksheet.write(row, 6, node[5])
+            worksheet.write(row, 6, node[6])
             row += 1
     workbook.close()
 
