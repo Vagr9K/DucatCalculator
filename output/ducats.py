@@ -19,7 +19,7 @@ def ReformatData(ducatdata, relictype, sortkey):
         relic.append(avg)
         Data.append(relic)
     # Sort in descending order based on ducat gain
-    Data = sorted(Data, key=lambda x: x[sortkey], reverse=True)
+    Data = sorted(Data, key=lambda x: x[sortkey + 1], reverse=True)
     return Data
 
 
